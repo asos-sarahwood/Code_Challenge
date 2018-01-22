@@ -2,32 +2,60 @@
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace CodeChallengeSolution
 {
-    class Program
+    public class Program
     {
-        static void Main()
+        public static void Main()
+        {
+            CalculateNumberOfLines();
+
+            CalculateNumberOfComments();
+
+        }
+
+        public static void CalculateNumberOfLines()
         {
             string logFile = @"C:\git\Code_Challenge\log.file";
-            var lineCount = File.ReadLines(logFile).Count();
 
-            Console.WriteLine(lineCount);
+            var totalNumberOfLines = File.ReadLines(logFile).Count();
+            Console.WriteLine("The total number of lines in the log file is " + totalNumberOfLines);
             Console.ReadLine();
-     /*       using (FileStream fs = File.OpenRead(logFile))
-            {
-               byte[] b = new byte[1024];
-                UTF8Encoding temp = new UTF8Encoding(true);
-                while (fs.Read(b, 0, b.Length) > 0)
-                {
-                    var lineCount = File.ReadLines(logFile).Count();
-                    
-                    Console.WriteLine(lineCount);
-                    Console.ReadLine();
-                }
-
-            }*/
-                                   
         }
+
+        public static void CalculateNumberOfComments()
+        {
+            int numberOfComments = 0;
+            string logFile = @"C:\git\Code_Challenge\log.file";
+
+            var totalNumberOfLines = File.ReadLines(logFile);
+            foreach (var line in totalNumberOfLines)
+            {
+                if (line.StartsWith("#"))
+                {
+                    //Console.WriteLine("#");
+                    numberOfComments++;
+
+                }
+                
+            }
+
+            Console.WriteLine("The total number of comments in the log file is " + numberOfComments);
+            Console.ReadLine();
+
+            // file.Close();
+
+
+        }
+
+    
+
+
+
+
+
+      
     }
 }
