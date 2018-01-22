@@ -14,6 +14,7 @@ namespace CodeChallengeSolution
             CalculateNumberOfLines();
             CalculateNumberOfComments();
             ReadMaximumTimeTaken();
+            ReadMinimumTimeTaken();
         }
 
         public static void CalculateNumberOfLines()
@@ -52,30 +53,35 @@ namespace CodeChallengeSolution
             {
                 if (line.StartsWith("2018"))
                 {
-           
                     int timeTaken = Convert.ToInt32(line.Split(' ').Last());
-                    
                     timeTakenList.Add(timeTaken);
-                    
-
-                    // You can convert it back to an array if you would like to
-                    
-               
                 }
-             
-
             }
 
-
-
             int maximumTimeTaken = timeTakenList.Max();
-            Console.WriteLine("The maximum time take was " + maximumTimeTaken);
+            Console.WriteLine("The maximum time taken was " + maximumTimeTaken);
             Console.ReadLine();
-
-
-
         }
 
+        public static void ReadMinimumTimeTaken()
+        {
+            string logFile = @"C:\git\Code_Challenge\log.file";
+            var totalNumberOfLines = File.ReadLines(logFile);
+            List<int> timeTakenList = new List<int>();
+
+            foreach (var line in totalNumberOfLines)
+            {
+                if (line.StartsWith("2018"))
+                {
+                    int timeTaken = Convert.ToInt32(line.Split(' ').Last());
+                    timeTakenList.Add(timeTaken);
+                }
+            }
+
+            int minimumTimeTaken = timeTakenList.Min();
+            Console.WriteLine("The minumum time taken was " + minimumTimeTaken);
+            Console.ReadLine();
+        }
 
     }
 }
