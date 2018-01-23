@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace CodeChallengeSolution
             CalculateNumberOfComments();
             ReadMaximumTimeTaken();
             ReadMinimumTimeTaken();
+            BusiestHour();
         }
 
         public static void CalculateNumberOfLines()
@@ -81,6 +83,50 @@ namespace CodeChallengeSolution
             int minimumTimeTaken = timeTakenList.Min();
             Console.WriteLine("The minumum time taken was " + minimumTimeTaken);
             Console.ReadLine();
+        }
+
+        public static void BusiestHour()
+        {
+            
+            List<string> timeTakenList = new List<string>();
+            string logFile = @"C:\git\Code_Challenge\log.file";
+            string[] splitBySpace;
+
+            var totalNumberOfLines = File.ReadLines(logFile);
+
+            foreach (var line in totalNumberOfLines)
+            {
+                if (line.StartsWith("2018"))
+                {
+                    splitBySpace = line.Split(' ');
+                    string date = splitBySpace[0];
+                    string timeStamp = splitBySpace[1];
+                    timeTakenList.Add(timeStamp);
+                }
+            }
+
+            string[] splitByColon;
+            List<int> hourLoggedList = new List<int>();
+
+            foreach (string time in timeTakenList)
+            {
+                splitByColon = time.Split(':');
+                string hourLogged = splitByColon[0];
+                hourLoggedList.Add(Convert.ToInt32(hourLogged));
+            }
+
+            var timeTakenGrouped = hourLoggedList.GroupBy(i => i);
+
+            foreach (var hour in timeTakenGrouped)
+            {
+                var hourFromTimeStamp = hour.Key;
+                var numberOfLogs = hour.Count();
+                
+                Console.WriteLine("the hour " + hourFromTimeStamp + " has " + numberOfLogs + " entries");
+                Console.ReadLine();
+            }
+
+            
         }
 
     }
